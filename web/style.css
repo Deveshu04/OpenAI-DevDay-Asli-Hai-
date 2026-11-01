@@ -777,7 +777,7 @@ input[aria-invalid="true"] { border-color: var(--warn); }
 
 .ob-hint { color: var(--ink-soft); font-size: 1.05rem; margin: 0 0 0.5rem; }
 
-.judge-code {
+.judge-code, .hero .judge-code {
   background: var(--ink);
   color: #fff;
   border-radius: 0.5rem;
