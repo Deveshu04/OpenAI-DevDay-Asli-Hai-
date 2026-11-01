@@ -4,8 +4,11 @@ from dataclasses import dataclass
 STACKS = {
     "sarvam":  {"parent": os.getenv("AGENT_ID_PARENT_SARVAM"),  "check": os.getenv("AGENT_ID_CHECK_SARVAM")},
     "compare": {"parent": os.getenv("AGENT_ID_PARENT_COMPARE"), "check": os.getenv("AGENT_ID_CHECK_COMPARE")},
+    "cerebras": {"parent": os.getenv("AGENT_ID_PARENT_CEREBRAS"), "check": os.getenv("AGENT_ID_CHECK_CEREBRAS")},
 }
 DEFAULT_STACK = os.getenv("VOICE_STACK", "sarvam")
+if DEFAULT_STACK not in STACKS:
+    raise ValueError(f"VOICE_STACK must be one of: {', '.join(STACKS)}")
 
 
 @dataclass

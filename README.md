@@ -116,12 +116,13 @@ The non-Hindi lines were written for this project and should be checked by a nat
 
 ## Voice stacks
 
-The same graph runs on two stacks, so accuracy on Hindi names and seconds to verdict can be compared. Drills alternate between them, and every session records its `stack`.
+The same graph can run on three stacks. Hindi drills alternate between Sarvam and the comparison stack; every session records its `stack`. Set `VOICE_STACK=cerebras` to opt into Cerebras for graph routing and response generation. The default remains Sarvam; see [the Cerebras setup guide](docs/cerebras.md).
 
 | Stack | Listen | Speak | Think |
 | --- | --- | --- | --- |
 | `sarvam` (default) | Sarvam `saaras:v4` | Sarvam `bulbul:v4-flash` | `gpt-5.4-mini` |
 | `compare` | Deepgram `nova-3` | Cartesia `sonic-3.6` | `gpt-5.4-mini` |
+| `cerebras` (optional) | Sarvam `saaras:v4` | Sarvam `bulbul:v4-flash` | Cerebras `gpt-oss-120b` |
 
 ## Layout
 

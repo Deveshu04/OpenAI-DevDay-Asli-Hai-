@@ -679,8 +679,11 @@ async def trigger(body: TriggerIn):
         family["id"], body.drill_id, body.drill_id, now - DRILL_WINDOW_S,
     )
     drill_id = drill["id"] if drill else None
-    # The comparison stack only speaks Hindi.
-    stack = pick_stack(Session(drill_id)) if family["language"] == DEFAULT_LANGUAGE else "sarvam"
+    # The comparison speech stack only speaks Hindi; Cerebras uses Sarvam speech and works in every language.
+    if family["language"] == DEFAULT_LANGUAGE:
+        stack = pick_stack(Session(drill_id))
+    else:
+        stack = DEFAULT_STACK if DEFAULT_STACK != "compare" else "sarvam"
     agent_id = STACKS.get(stack, {}).get("parent")
     if not agent_id:
         raise HTTPException(503, f"No parent agent configured for stack {stack}")
