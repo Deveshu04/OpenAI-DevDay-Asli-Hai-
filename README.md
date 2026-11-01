@@ -4,7 +4,7 @@ One tap before a parent pays. A voice agent calls the real family member, checks
 
 [![The parent presses the one button, and Saathi and her son are called at the same moment](media/asli-hai-teaser.gif)](https://drive.google.com/file/d/12b9dMJ91GHxhUz3-9TP29JEgZDbDlC6U/view?usp=sharing)
 
-**[Watch the demo film](https://drive.google.com/file/d/12b9dMJ91GHxhUz3-9TP29JEgZDbDlC6U/view?usp=sharing)** (3 min 49 s, narrated). It shows the real screens, both calls side by side with what the backend does at each step, and every accessibility setting.
+**[Watch Live Demo](https://drive.google.com/file/d/12b9dMJ91GHxhUz3-9TP29JEgZDbDlC6U/view?usp=sharing)**
 
 **Try the demo**
 
