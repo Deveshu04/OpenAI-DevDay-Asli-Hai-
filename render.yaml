@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: asli-hai-devday
+    runtime: python
+    plan: starter
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    disk:
+      name: asli-devday-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DB_PATH
+        value: /var/data/asli.db
+      - key: VOICE_STACK
+        value: sarvam
+      - key: VERDICT_TIMEOUT_S
+        value: "75"
+      - key: BOLNA_API_KEY
+        sync: false
+      - key: EXA_API_KEY
+        sync: false
+      - key: TOOL_SECRET
+        sync: false
+      - key: AGENT_ID_PARENT_SARVAM
+        sync: false
+      - key: AGENT_ID_CHECK_SARVAM
+        sync: false
+      - key: AGENT_ID_PARENT_COMPARE
+        sync: false
+      - key: AGENT_ID_CHECK_COMPARE
+        sync: false
+      - key: SIGNUP_CODE
+        sync: false
+      - key: BOLNA_FROM_NUMBER
+        sync: false
+      - key: SUMMARY_WORKFLOW_ID
+        sync: false

@@ -1,0 +1,198 @@
+{
+  "voices": {
+    "narrator": {
+      "voice": "marin",
+      "base": "Voice: a warm Indian woman narrating a short documentary, Indian English accent. Pacing: unhurried and clear, with natural pauses. Say Hindi words written in Devanagari the Hindi way, and say 'Saathi' as the Hindi word 'saa-thee' (friend)."
+    },
+    "scammer": {
+      "voice": "ash",
+      "base": "Voice: a young Indian man on a bad phone line, speaking Hindi. Panicked, breathless and pleading, rushing his words as if he is hurt and scared."
+    },
+    "rahul": {
+      "voice": "verse",
+      "base": "Voice: a young Indian man speaking Hindi to his mother on the phone. Gentle, warm and reassuring, a little emotional."
+    },
+    "sunita": {
+      "voice": "sage",
+      "base": "Voice: an Indian woman in her sixties speaking Hindi on the phone. Deeply relieved, her voice soft and shaking, close to tears."
+    }
+  },
+  "lines": [
+    {
+      "id": "hook_scam1",
+      "who": "scammer",
+      "text": "मम्मी, मैं राहुल… मेरा एक्सीडेंट हो गया है।"
+    },
+    {
+      "id": "hook_scam2",
+      "who": "scammer",
+      "text": "अभी पचास हज़ार भेज दो। पापा को मत बताना।"
+    },
+    {
+      "id": "hook_n1",
+      "who": "narrator",
+      "mood": "Grave and quiet, with a sense of urgency.",
+      "text": "A scam like this works in the two minutes between the call and the transfer."
+    },
+    {
+      "id": "hook_n2",
+      "who": "narrator",
+      "mood": "Quiet resolve, a small lift of hope.",
+      "text": "असली है. Built for exactly those two minutes."
+    },
+    {
+      "id": "press_n1",
+      "who": "narrator",
+      "mood": "Calm and tender.",
+      "text": "One tap. Sunita opens the button her son added to her home screen, and presses it. Nothing to read, nothing to fill in."
+    },
+    {
+      "id": "press_n2",
+      "who": "narrator",
+      "mood": "Focused, building momentum.",
+      "text": "Two calls start at the same moment. साथी calls Sunita, and her son, Rahul, gets a rescue call."
+    },
+    {
+      "id": "two_n1",
+      "who": "narrator",
+      "mood": "Tense and present, like a thriller.",
+      "text": "Sunita is in Lucknow. Rahul is in Bengaluru. Both phones ring together."
+    },
+    {
+      "id": "two_n2",
+      "who": "narrator",
+      "mood": "Gentle and attentive.",
+      "text": "Sunita tells साथी what happened, in her own words."
+    },
+    {
+      "id": "two_n3",
+      "who": "narrator",
+      "mood": "Quick and purposeful.",
+      "text": "Her story is pushed straight into Rahul's live call."
+    },
+    {
+      "id": "two_n4",
+      "who": "narrator",
+      "mood": "A short, weighty beat.",
+      "text": "And Rahul? He says he never called."
+    },
+    {
+      "id": "two_n5",
+      "who": "narrator",
+      "mood": "Relief breaking through, warm.",
+      "text": "And the verdict lands in Sunita's call, word for word, in about thirty seconds."
+    },
+    {
+      "id": "two_n6",
+      "who": "narrator",
+      "mood": "Warm and steady.",
+      "text": "Rahul is asked to call her too."
+    },
+    {
+      "id": "two_n7",
+      "who": "narrator",
+      "mood": "Soft, then quietly triumphant.",
+      "text": "So he does. The scammer gets nothing."
+    },
+    {
+      "id": "two_rahul",
+      "who": "rahul",
+      "text": "माँ, मैं बिल्कुल ठीक हूँ। वो कॉल मेरा नहीं था।"
+    },
+    {
+      "id": "two_sunita",
+      "who": "sunita",
+      "text": "भगवान का शुक्र है।"
+    },
+    {
+      "id": "other_n1",
+      "who": "narrator",
+      "mood": "Curious, then reassuring.",
+      "text": "And if it really is him? Rahul says the family word. Only the backend checks it, and then साथी tells her the call is real."
+    },
+    {
+      "id": "other_n2",
+      "who": "narrator",
+      "mood": "Firm and protective.",
+      "text": "A caller claiming to be the police? A fixed warning plays, and Rahul hears at once."
+    },
+    {
+      "id": "other_n3",
+      "who": "narrator",
+      "mood": "Urgent but calm.",
+      "text": "Money already sent? साथी tells her to call nineteen-thirty, the cybercrime helpline, straight away."
+    },
+    {
+      "id": "other_n4",
+      "who": "narrator",
+      "mood": "Steady and practical.",
+      "text": "Still stuck on the scammer's call? Rahul is told to ring her himself."
+    },
+    {
+      "id": "other_n5",
+      "who": "narrator",
+      "mood": "Kind and patient.",
+      "text": "Family not answering? She can ask साथी to try again, and she does."
+    },
+    {
+      "id": "mfh_n1",
+      "who": "narrator",
+      "mood": "Warm and simple.",
+      "text": "Made for her. One button. No forms, no menus, nothing to learn."
+    },
+    {
+      "id": "mfh_n2",
+      "who": "narrator",
+      "mood": "Warm, with quiet pride.",
+      "text": "Her language, in her own script. Hindi, English, Hinglish, and ten more Indian languages."
+    },
+    {
+      "id": "mfh_n3",
+      "who": "narrator",
+      "mood": "Light and caring.",
+      "text": "Bigger text in one tap. And the button never gets smaller than a palm."
+    },
+    {
+      "id": "mfh_n4",
+      "who": "narrator",
+      "mood": "Clear and respectful.",
+      "text": "Every control has a name, so a screen reader can tell her exactly what it does."
+    },
+    {
+      "id": "mfh_n5",
+      "who": "narrator",
+      "mood": "Warm and inclusive.",
+      "text": "The family sets it up, one question per screen. One phone can protect a mother, a father, and a sister."
+    },
+    {
+      "id": "trust_n1",
+      "who": "narrator",
+      "mood": "Firm and confident.",
+      "text": "And it can't be talked into paying."
+    },
+    {
+      "id": "trust_n2",
+      "who": "narrator",
+      "mood": "Steady and assured.",
+      "text": "The family word stays secret. साथी never asks for an OTP, never promises money back, and her safety lines can't be talked over."
+    },
+    {
+      "id": "trust_n3",
+      "who": "narrator",
+      "mood": "Serious and clear.",
+      "text": "There is no digital arrest in Indian law. If money has gone, call nineteen-thirty, right away."
+    },
+    {
+      "id": "end_n1",
+      "who": "narrator",
+      "mood": "Confident and crisp.",
+      "text": "Under the hood: two Bolna agents and a small backend, pushing events into live calls."
+    },
+    {
+      "id": "end_n2",
+      "who": "narrator",
+      "mood": "Warm, hopeful and moved, slowing down at the end.",
+      "text": "असली है. One tap, before a parent pays."
+    }
+  ]
+}

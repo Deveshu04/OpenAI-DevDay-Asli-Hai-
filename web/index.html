@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-i18n-page data-i18n-title="title.home">
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e4edf5">
+  <meta name="description" content="One tap before a parent pays. A voice agent calls the real family member, checks the family word, and tells the parent whether the call was genuine while they wait.">
+  <title>Asli hai? — check before a parent pays</title>
+  <script>
+    (function (d) {
+      var known = ["hi", "en", "hi-Latn", "bn", "mr", "te", "ta", "gu", "kn", "ml", "pa", "od", "as"];
+      var l = null;
+      try {
+        l = localStorage.getItem("asli-lang");
+        if (localStorage.getItem("asli-text") === "large") d.classList.add("large-text");
+      } catch (e) {}
+      if (known.indexOf(l) >= 0) { d.dataset.lang = l; d.lang = l === "od" ? "or" : l; }
+      if (d.dataset.lang !== "en") {
+        d.classList.add("i18n-pending");
+        setTimeout(function () { d.classList.remove("i18n-pending"); }, 2500);
+      }
+    })(document.documentElement);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body class="home">
+  <a class="skip" href="#main" data-i18n="skip.content">Skip to content</a>
+
+  <header class="bar">
+    <a class="mark" href="./" data-i18n="brand">Asli hai?</a>
+    <nav data-i18n-label="nav.label" aria-label="Sections">
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#demo" data-i18n="nav.demo">Watch a check</a>
+      <a href="signup.html" data-i18n="nav.register">Register a family</a>
+    </nav>
+    <div class="prefs" role="group" data-i18n-label="prefs.label" aria-label="Display settings">
+      <div class="lang-pick">
+        <span id="lang-label" data-i18n="prefs.language">Language</span>
+        <select data-lang-select aria-labelledby="lang-label">
+          <option value="en" lang="en">English</option>
+          <option value="hi-Latn" lang="hi-Latn">Hinglish</option>
+          <option value="hi" lang="hi">हिंदी</option>
+          <option value="bn" lang="bn">বাংলা</option>
+          <option value="mr" lang="mr">मराठी</option>
+          <option value="te" lang="te">తెలుగు</option>
+          <option value="ta" lang="ta">தமிழ்</option>
+          <option value="gu" lang="gu">ગુજરાતી</option>
+          <option value="kn" lang="kn">ಕನ್ನಡ</option>
+          <option value="ml" lang="ml">മലയാളം</option>
+          <option value="pa" lang="pa">ਪੰਜਾਬੀ</option>
+          <option value="od" lang="or">ଓଡ଼ିଆ</option>
+          <option value="as" lang="as">অসমীয়া</option>
+        </select>
+      </div>
+      <button type="button" class="pref" data-text-size aria-pressed="false" data-i18n-label="prefs.larger" aria-label="Larger text">A+</button>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <blockquote>
+        <span data-i18n="hero.quote">“Papa, I've had an accident. Send money quickly.”</span>
+        <footer data-i18n="hero.footer">The kind of call that comes minutes before a scam transfer.</footer>
+      </blockquote>
+      <h1 id="hero-title" data-i18n="hero.title">One tap asks the real family before a parent pays.</h1>
+      <p data-i18n="hero.body">Asli hai? calls the parent back, then calls the family member the caller pretended to be, while the parent stays on the line. Then it tells them, in their own language, whether the call was genuine.</p>
+      <div class="actions">
+        <a class="button primary" href="#demo" data-i18n="cta.watch">Watch a check</a>
+        <a class="button secondary" href="signup.html" data-i18n="cta.register">Register your family</a>
+      </div>
+    </section>
+
+    <section class="section" id="demo" aria-labelledby="demo-title">
+      <h2 id="demo-title" data-i18n="demo.title">Watch a check</h2>
+      <p data-i18n="demo.body">Pick what happened and the language of the call, then press Play. Both calls run side by side: Saathi on the parent's phone, the family check on the family member's phone. Lines marked Fixed are safety messages, spoken word for word every time.</p>
+
+      <div id="sim">
+        <div class="sim-options">
+          <fieldset class="scenarios">
+            <legend data-i18n="demo.legend">What happened</legend>
+            <input type="radio" name="scenario" id="sc-fake" value="fake" checked>
+            <label for="sc-fake" data-i18n="sc.fake">“Beta” needs money</label>
+            <input type="radio" name="scenario" id="sc-real" value="real">
+            <label for="sc-real" data-i18n="sc.real">It really was Rahul</label>
+            <input type="radio" name="scenario" id="sc-cbi" value="cbi">
+            <label for="sc-cbi" data-i18n="sc.cbi">“CBI” digital arrest</label>
+            <input type="radio" name="scenario" id="sc-paid" value="paid">
+            <label for="sc-paid" data-i18n="sc.paid">Money already sent</label>
+            <input type="radio" name="scenario" id="sc-none" value="noanswer">
+            <label for="sc-none" data-i18n="sc.none">Family doesn't pick up</label>
+          </fieldset>
+          <div class="field call-lang">
+            <label for="call-lang" data-i18n="demo.callLanguage">Language of the call</label>
+            <select id="call-lang"></select>
+          </div>
+        </div>
+
+        <div class="stage">
+          <section class="phone" aria-labelledby="parent-phone-title">
+            <div class="phone-head">
+              <h3 id="parent-phone-title" data-i18n="phone.parent">Sunita's phone</h3>
+              <span class="state" id="parent-state"></span>
+            </div>
+            <div class="phone-screen" id="parent-log" role="log" tabindex="0" data-i18n-label="log.parent" aria-label="Parent's call transcript"></div>
+          </section>
+
+          <div class="clock">
+            <span class="seconds" id="sim-seconds">0</span>
+            <span class="unit" data-i18n="clock.unit">seconds since the tap</span>
+            <span class="verdict" id="sim-verdict" role="status"></span>
+          </div>
+
+          <section class="phone" aria-labelledby="family-phone-title">
+            <div class="phone-head">
+              <h3 id="family-phone-title" data-i18n="phone.family">Family phone</h3>
+              <span class="state" id="family-state"></span>
+            </div>
+            <div class="phone-screen" id="family-log" role="log" tabindex="0" data-i18n-label="log.family" aria-label="Family member's call transcript"></div>
+          </section>
+        </div>
+
+        <div class="controls">
+          <button type="button" class="button primary" id="sim-play">Play</button>
+          <button type="button" class="button secondary" id="sim-step" data-i18n="sim.next">Next line</button>
+          <p class="note" data-i18n="sim.note">Timings are illustrative and play at 3× speed. Pause, or step through one line at a time.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-title">
+      <h2 id="how-title" data-i18n="how.title">How it works</h2>
+      <p data-i18n="how.body">Two voice agents on Bolna and a small backend. The parent never hangs up.</p>
+      <ol class="steps">
+        <li>
+          <h3 data-i18n="how.1.title">The parent taps one button</h3>
+          <p data-i18n="how.1.body">Before paying anyone who claims to be family or police, they press the yellow button saved on their phone.</p>
+        </li>
+        <li>
+          <h3 data-i18n="how.2.title">Saathi calls them back</h3>
+          <p data-i18n="how.2.body">In two questions she finds out who called, what they wanted and how much.</p>
+        </li>
+        <li>
+          <h3 data-i18n="how.3.title">A second call checks the family</h3>
+          <p data-i18n="how.3.body">While the parent waits, another agent calls the family member with one yes-or-no question. A yes also needs the family word.</p>
+        </li>
+        <li>
+          <h3 data-i18n="how.4.title">The verdict lands in the live call</h3>
+          <p data-i18n="how.4.body">The answer is pushed straight into the parent's call, and the family gets a WhatsApp summary.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="safety" aria-labelledby="safety-title">
+      <h2 id="safety-title" data-i18n="safety.title">Built so it can't be talked into a wrong answer</h2>
+      <div class="safety">
+        <div>
+          <h3 data-i18n="safety.1.title">Fixed safety wording</h3>
+          <p data-i18n="safety.1.body">Every verdict is a fixed line. The AI never improvises whether a call was real.</p>
+        </div>
+        <div>
+          <h3 data-i18n="safety.2.title">The family word never reaches the AI</h3>
+          <p data-i18n="safety.2.body">It isn't in any prompt or log. Only the server compares it, in English letters or the family's own script.</p>
+        </div>
+        <div>
+          <h3 data-i18n="safety.3.title">A “no” is enough to stop a payment</h3>
+          <p data-i18n="safety.3.body">If the family member didn't call, that settles it. A “yes” unlocks money, so it also needs the family word.</p>
+        </div>
+        <div>
+          <h3 data-i18n="safety.4.title">Never left waiting</h3>
+          <p data-i18n="safety.4.body">Unanswered calls move to the next family member. After 75 seconds without a clear answer, Saathi tells the parent not to pay until they reach the family themselves.</p>
+        </div>
+        <div>
+          <h3 data-i18n="safety.5.title">Police and CBI calls get a straight answer</h3>
+          <p data-i18n="safety.5.body">There is no such thing as a “digital arrest”. Saathi says so, tells the parent to hang up, and reads out 1930 if money already went.</p>
+        </div>
+        <div>
+          <h3 data-i18n="safety.6.title">In the family's own language</h3>
+          <p data-i18n="safety.6.body">Saathi listens and speaks in 12 languages through Sarvam, chosen when the family registers. In Hindi the same agents also run on Deepgram and Cartesia, so drills measure which is faster and more accurate.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="languages" aria-labelledby="languages-title">
+      <h2 id="languages-title" data-i18n="langs.title">Saathi speaks the family's language</h2>
+      <p data-i18n="langs.body">Twelve languages, picked when the family registers. Every call opens in that language, and every fixed safety line is written and voiced in each one.</p>
+      <div class="languages">
+        <div class="field">
+          <label for="lang-choice" data-i18n="langs.pick">Pick a language</label>
+          <select id="lang-choice"></select>
+        </div>
+        <figure class="say-box">
+          <figcaption class="voice" data-i18n="langs.caption">What Saathi says when the call was fake</figcaption>
+          <p class="say" id="lang-line" aria-live="polite"></p>
+          <p class="voice" id="lang-voice"></p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="families" aria-labelledby="families-title">
+      <h2 id="families-title" data-i18n="families.title">For families</h2>
+      <div class="families">
+        <div>
+          <p data-i18n="families.body">A son or daughter sets it up once for their parent.</p>
+          <ol>
+            <li data-i18n="families.1">Register the parent, one or two family members to call, and a family word.</li>
+            <li data-i18n="families.2">Open the button link on the parent's phone and add it to the home screen.</li>
+            <li data-i18n="families.3">Tell them: before paying anyone who calls asking for money, press the yellow button.</li>
+          </ol>
+          <div class="actions">
+            <a class="button primary" href="signup.html" data-i18n="cta.register">Register your family</a>
+            <a class="button secondary" href="tap.html?demo=1" data-i18n="cta.try">Try the button</a>
+          </div>
+        </div>
+        <figure class="mini-seal">
+          <span class="disc" aria-hidden="true" data-i18n="families.press">Press</span>
+          <figcaption data-i18n="families.caption">What the parent sees: one large button, in their own language.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <p data-i18n-html="foot.helpline">Already paid a scammer? Call <a href="tel:1930"><strong>1930</strong></a> or report it at <a href="https://cybercrime.gov.in">cybercrime.gov.in</a> right away.</p>
+    <p data-i18n-html="foot.about">Asli hai? is a Bolna Buildathon project. The code is on <a href="https://github.com/Deveshu04/OpenAI-DevDay-Asli-Hai-">GitHub</a>.</p>
+    <p>Web search is powered by <a href="https://exa.ai/">Exa</a>.</p>
+  </footer>
+
+  <script src="site.js?v=6"></script>
+  <script src="demo.js?v=6"></script>
+</body>
+</html>

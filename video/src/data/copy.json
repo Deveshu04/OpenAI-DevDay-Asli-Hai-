@@ -1,0 +1,293 @@
+{
+  "tap": {
+    "hi": {
+      "question": "किसी ने फ़ोन पर पैसे या OTP माँगा?",
+      "press": "दबाइए",
+      "calling": "कॉल आ रहा है",
+      "idle": "दबाते ही साथी आपको कॉल करेगी। कुछ भी भेजने से पहले उनसे बात कीजिए।",
+      "dialing": "कॉल लगा रहे हैं…",
+      "ringing": "आपका फ़ोन अभी बजेगा। उसे उठाइए। आपके परिवार को भी कॉल जा रहा है।",
+      "demoRinging": "असली इस्तेमाल में अभी आपका फ़ोन बजता, साथी आपसे बात करती, और आपके परिवार को भी कॉल जाता।",
+      "noLink": "यह लिंक अधूरा है। अपने परिवार से नया लिंक माँगिए।",
+      "oldLink": "यह लिंक अब काम नहीं करता। अपने परिवार से नया लिंक माँगिए।",
+      "failed": "कॉल नहीं लग पाया। एक बार फिर दबाइए।",
+      "helpline": "पैसे जा चुके हैं? तुरंत कॉल कीजिए",
+      "demo": "डेमो: बटन दबाने पर असली कॉल नहीं होगा।",
+      "language": "भाषा",
+      "larger": "बड़े अक्षर"
+    },
+    "en": {
+      "question": "Did someone ask for money or an OTP on the phone?",
+      "press": "Press",
+      "calling": "Call coming",
+      "idle": "Saathi will call you as soon as you press. Talk to her before you send anything.",
+      "dialing": "Placing the call…",
+      "ringing": "Your phone will ring now. Please answer it. Your family is being called too.",
+      "demoRinging": "In real use your phone would ring now, Saathi would talk to you, and your family would be called too.",
+      "noLink": "This link is incomplete. Ask your family for a new one.",
+      "oldLink": "This link no longer works. Ask your family for a new one.",
+      "failed": "The call didn't go through. Please press again.",
+      "helpline": "Money already gone? Call right away",
+      "demo": "Demo: pressing the button won't place a call.",
+      "language": "Language",
+      "larger": "Larger text"
+    },
+    "ta": {
+      "question": "யாராவது போனில் பணம் அல்லது OTP கேட்டார்களா?",
+      "press": "அழுத்துங்கள்",
+      "calling": "அழைப்பு வருகிறது",
+      "idle": "அழுத்தியவுடன் சாத்தி உங்களை அழைப்பார். எதையும் அனுப்பும் முன் அவரிடம் பேசுங்கள்.",
+      "dialing": "அழைப்பு இணைக்கப்படுகிறது…",
+      "ringing": "உங்கள் போன் இப்போது ஒலிக்கும். எடுத்துப் பேசுங்கள். உங்கள் குடும்பத்தினருக்கும் அழைப்பு செல்கிறது.",
+      "demoRinging": "உண்மையான பயன்பாட்டில் இப்போது உங்கள் போன் ஒலித்திருக்கும், சாத்தி உங்களிடம் பேசியிருப்பார், உங்கள் குடும்பத்தினருக்கும் அழைப்பு சென்றிருக்கும்.",
+      "noLink": "இந்த இணைப்பு முழுமையாக இல்லை. உங்கள் குடும்பத்திடம் புதிய இணைப்பைக் கேளுங்கள்.",
+      "oldLink": "இந்த இணைப்பு இனி வேலை செய்யாது. உங்கள் குடும்பத்திடம் புதிய இணைப்பைக் கேளுங்கள்.",
+      "failed": "அழைப்பு இணையவில்லை. மீண்டும் அழுத்துங்கள்.",
+      "helpline": "பணம் போய்விட்டதா? உடனே அழையுங்கள்",
+      "demo": "டெமோ: பட்டனை அழுத்தினால் உண்மையான அழைப்பு வராது.",
+      "language": "மொழி",
+      "larger": "பெரிய எழுத்து"
+    },
+    "bn": {
+      "question": "কেউ কি ফোনে টাকা বা OTP চেয়েছে?",
+      "press": "টিপুন",
+      "calling": "ফোন আসছে",
+      "idle": "টিপলেই সাথী আপনাকে ফোন করবে। কিছু পাঠানোর আগে ওনার সঙ্গে কথা বলুন।",
+      "dialing": "ফোন লাগানো হচ্ছে…",
+      "ringing": "আপনার ফোন এখনই বাজবে। ধরুন। আপনার পরিবারকেও ফোন করা হচ্ছে।",
+      "demoRinging": "আসল ব্যবহারে এখন আপনার ফোন বাজত, সাথী আপনার সঙ্গে কথা বলত, আর আপনার পরিবারকেও ফোন করা হত।",
+      "noLink": "এই লিংকটা অসম্পূর্ণ। পরিবারের কাছে নতুন লিংক চেয়ে নিন।",
+      "oldLink": "এই লিংকটা আর কাজ করে না। পরিবারের কাছে নতুন লিংক চেয়ে নিন।",
+      "failed": "ফোন লাগেনি। আরেকবার টিপুন।",
+      "helpline": "টাকা চলে গেছে? এখনই ফোন করুন",
+      "demo": "ডেমো: বোতাম টিপলে আসল ফোন হবে না।",
+      "language": "ভাষা",
+      "larger": "বড় অক্ষর"
+    },
+    "pa": {
+      "question": "ਕੀ ਕਿਸੇ ਨੇ ਫ਼ੋਨ ਉੱਤੇ ਪੈਸੇ ਜਾਂ OTP ਮੰਗਿਆ?",
+      "press": "ਦਬਾਓ",
+      "calling": "ਫ਼ੋਨ ਆ ਰਿਹਾ ਹੈ",
+      "idle": "ਦਬਾਉਂਦੇ ਹੀ ਸਾਥੀ ਤੁਹਾਨੂੰ ਫ਼ੋਨ ਕਰੇਗੀ। ਕੁਝ ਵੀ ਭੇਜਣ ਤੋਂ ਪਹਿਲਾਂ ਉਸ ਨਾਲ ਗੱਲ ਕਰੋ।",
+      "dialing": "ਫ਼ੋਨ ਲਗਾ ਰਹੇ ਹਾਂ…",
+      "ringing": "ਤੁਹਾਡਾ ਫ਼ੋਨ ਹੁਣੇ ਵੱਜੇਗਾ। ਉਸਨੂੰ ਚੁੱਕੋ। ਤੁਹਾਡੇ ਪਰਿਵਾਰ ਨੂੰ ਵੀ ਫ਼ੋਨ ਜਾ ਰਿਹਾ ਹੈ।",
+      "demoRinging": "ਅਸਲ ਵਰਤੋਂ ਵਿੱਚ ਹੁਣ ਤੁਹਾਡਾ ਫ਼ੋਨ ਵੱਜਦਾ, ਸਾਥੀ ਤੁਹਾਡੇ ਨਾਲ ਗੱਲ ਕਰਦੀ, ਅਤੇ ਤੁਹਾਡੇ ਪਰਿਵਾਰ ਨੂੰ ਵੀ ਫ਼ੋਨ ਜਾਂਦਾ।",
+      "noLink": "ਇਹ ਲਿੰਕ ਅਧੂਰਾ ਹੈ। ਆਪਣੇ ਪਰਿਵਾਰ ਤੋਂ ਨਵਾਂ ਲਿੰਕ ਮੰਗੋ।",
+      "oldLink": "ਇਹ ਲਿੰਕ ਹੁਣ ਕੰਮ ਨਹੀਂ ਕਰਦਾ। ਆਪਣੇ ਪਰਿਵਾਰ ਤੋਂ ਨਵਾਂ ਲਿੰਕ ਮੰਗੋ।",
+      "failed": "ਫ਼ੋਨ ਨਹੀਂ ਲੱਗਿਆ। ਇੱਕ ਵਾਰ ਫਿਰ ਦਬਾਓ।",
+      "helpline": "ਪੈਸੇ ਚਲੇ ਗਏ? ਤੁਰੰਤ ਫ਼ੋਨ ਕਰੋ",
+      "demo": "ਡੈਮੋ: ਬਟਨ ਦਬਾਉਣ ਨਾਲ ਅਸਲੀ ਫ਼ੋਨ ਨਹੀਂ ਲੱਗੇਗਾ।",
+      "language": "ਭਾਸ਼ਾ",
+      "larger": "ਵੱਡੇ ਅੱਖਰ"
+    },
+    "hi-Latn": {
+      "question": "Kisi ne phone par paise ya OTP maange?",
+      "press": "Dabaiye",
+      "calling": "Call aa raha hai",
+      "idle": "Dabaate hi Saathi aapko call karegi. Kuch bhi bhejne se pehle unse baat kijiye.",
+      "dialing": "Call laga rahe hain…",
+      "ringing": "Aapka phone abhi bajega. Use uthaiye. Aapke parivaar ko bhi call ja raha hai.",
+      "demoRinging": "Asli istemaal mein abhi aapka phone bajta, Saathi aapse baat karti, aur aapke parivaar ko bhi call jaata.",
+      "noLink": "Yeh link adhoora hai. Apne parivaar se naya link maangiye.",
+      "oldLink": "Yeh link ab kaam nahi karta. Apne parivaar se naya link maangiye.",
+      "failed": "Call nahi lag paaya. Ek baar phir dabaiye.",
+      "helpline": "Paise ja chuke hain? Turant call kijiye",
+      "demo": "Demo: button dabane par asli call nahi hoga.",
+      "language": "Bhasha",
+      "larger": "Bade akshar"
+    }
+  },
+  "brand": {
+    "hi": "असली है?",
+    "en": "Asli hai?",
+    "hi-Latn": "Asli hai?",
+    "bn": "আসলি হ্যায়?",
+    "mr": "असली है?",
+    "te": "అస్లీ హై?",
+    "ta": "அஸ்லி ஹை?",
+    "gu": "અસલી હૈ?",
+    "kn": "ಅಸ್ಲಿ ಹೈ?",
+    "ml": "അസ്‌ലി ഹൈ?",
+    "pa": "ਅਸਲੀ ਹੈ?",
+    "od": "ଅସଲି ହୈ?",
+    "as": "অসলী হৈ?"
+  },
+  "saathi": {
+    "verdict_fake": {
+      "hi": "अच्छी ख़बर। मैंने आपके परिवार से बात कर ली है। वो बिल्कुल ठीक हैं और उन्होंने आपको कोई कॉल नहीं किया। वो कॉल नकली था। कोई पैसा या OTP मत दीजिए, और उस नंबर को ब्लॉक कर दीजिए।",
+      "en": "Good news. I've spoken to your family. They are completely fine, and they did not call you. That call was fake. Don't give any money or OTP, and block that number."
+    },
+    "verdict_unconfirmed": {
+      "hi": "अभी मैं आपके परिवार से पक्की बात नहीं कर पाई। जब तक आप ख़ुद उनसे उनके पुराने नंबर पर बात न कर लें, कोई पैसा मत भेजिए। असली मुसीबत होगी तो वो थोड़ा इंतज़ार कर सकती है।",
+      "en": "I couldn't confirm with your family just now. Don't send any money until you have spoken to them yourself on their old number. A real emergency can wait a little."
+    },
+    "authority_scam": {
+      "hi": "ध्यान से सुनिए। डिजिटल अरेस्ट नाम की कोई चीज़ क़ानून में नहीं है। पुलिस, CBI या कोर्ट वीडियो कॉल पर पैसे नहीं माँगते। अभी वो कॉल काट दीजिए, और कोई OTP या पैसा मत दीजिए। मैं आपके परिवार को बता रही हूँ।",
+      "en": "Please listen carefully. There is no such thing as a digital arrest in the law. Police, the CBI or courts never ask for money on a video call. Hang up that call now, and don't give any OTP or money. I'm informing your family."
+    },
+    "already_paid": {
+      "hi": "घबराइए मत, पर अभी तुरंत 1930 पर कॉल कीजिए, शुरू के घंटे सबसे ज़रूरी होते हैं। फिर अपने बैंक को भी कॉल कीजिए। मैं आपके परिवार को अभी ख़बर कर रही हूँ।",
+      "en": "Don't panic, but call 1930 right away; the first few hours matter most. Then call your bank too. I'm informing your family right now."
+    },
+    "closing": {
+      "hi": "अपना ध्यान रखिए। जब भी शक हो, यही बटन दबाइए। नमस्ते।",
+      "en": "Take care. Whenever you are in doubt, press this same button. Namaste."
+    },
+    "calling_family": {
+      "hi": "मैं अभी आपके परिवार को कॉल कर रही हूँ। लाइन पर बने रहिए।",
+      "en": "I'm calling your family right now. Please stay on the line."
+    }
+  },
+  "check": {
+    "rescue_thanks": {
+      "hi": "शुक्रिया। मैं उन्हें अभी बता रही हूँ। आप भी उन्हें एक बार कॉल कर लीजिए। नमस्ते।",
+      "en": "Thank you. I'm letting them know right now. Please give them a call yourself too. Namaste."
+    },
+    "rescue_timeout": {
+      "hi": "मुझे अभी पूरी बात पता नहीं चल पाई। कृपया अभी ख़ुद उन्हें कॉल कीजिए। नमस्ते।",
+      "en": "I couldn't get the full story yet. Please call them yourself now. Namaste."
+    },
+    "alert_done": {
+      "hi": "कृपया उन्हें अभी कॉल कीजिए। नमस्ते।",
+      "en": "Please call them now. Namaste."
+    },
+    "thanks": {
+      "hi": "शुक्रिया। मैं उन्हें अभी बता रही हूँ। नमस्ते।",
+      "en": "Thank you. I'm letting them know right now. Namaste."
+    }
+  },
+  "lines": {
+    "hi": {
+      "parent_greeting": "नमस्ते सुनीता जी, मैं साथी, असली है से बोल रही हूँ। आराम से बताइए, क्या हुआ?",
+      "rescue_greeting": "नमस्ते राहुल, मैं साथी, असली है से बोल रही हूँ, सुनीता जी की सुरक्षा लाइन। सुनीता जी ने अभी असली है का बटन दबाया है। हो सकता है उन्हें कोई ठगी का कॉल आया हो। मैं अभी उनसे पता कर रही हूँ कि क्या हुआ, कृपया लाइन पर बने रहिए।",
+      "verify": "अभी उन्हें एक कॉल आया जिसमें किसी ने राहुल बनकर पैसे माँगे। क्या आपने अभी उन्हें कॉल किया था?",
+      "update_unreachable": "सुनीता जी हमारा कॉल नहीं उठा पाए। हो सकता है वो अभी भी उसी कॉल पर हों।",
+      "update_authority": "अभी सुनीता जी को एक ठगी का कॉल आया, जिसमें किसी ने ख़ुद को पुलिस या अफ़सर बताया। मैंने उन्हें कॉल काटने और कोई पैसा न देने को कहा है। कृपया अभी उन्हें कॉल कीजिए।",
+      "update_paid": "हो सकता है सुनीता जी ने अभी किसी ठग को पैसे या OTP भेज दिए हों। मैंने उन्हें 1930 और अपने बैंक को कॉल करने को कहा है। कृपया तुरंत उन्हें कॉल कीजिए।"
+    },
+    "en": {
+      "parent_greeting": "Namaste Sunita ji, I'm Saathi, speaking from Asli hai. Take your time and tell me, what happened?",
+      "rescue_greeting": "Namaste Rahul, I'm Saathi, speaking from Asli hai, Sunita ji's safety line. Sunita ji just pressed the Asli hai button. They may have got a scam call. I'm finding out from them what happened, so please stay on the line.",
+      "verify": "Sunita ji just got a call where someone pretended to be Rahul and asked for money. Did you just call them?",
+      "update_unreachable": "Sunita ji couldn't take our call. They may still be on that call.",
+      "update_authority": "Sunita ji just got a scam call from someone claiming to be the police or an official. I've told them to hang up and not pay anything. Please call them now.",
+      "update_paid": "Sunita ji may have just sent money or an OTP to a scammer. I've told them to call 1930 and their bank. Please call them right away."
+    }
+  },
+  "i18n": {
+    "en": {
+      "ob.title": "Set up Asli hai? for your parent",
+      "ob.intro": "A few quick questions, one at a time. It takes about two minutes.",
+      "ob.q.parentName": "What should Saathi call your parent?",
+      "ob.q.parentPhone": "What is {name}'s mobile number?",
+      "ob.q.language": "Which language should Saathi speak with {name}?",
+      "ob.q.first": "Who should Saathi call first to check?",
+      "ob.q.firstPhone": "What is {first}'s mobile number?",
+      "ob.q.word": "Choose a family word",
+      "ob.h.word": "When someone really needs money, Saathi asks for this word before telling {name} the call is genuine. Pick something a stranger can't find online.",
+      "ob.q.review": "Check the details",
+      "ob.next": "Next",
+      "ob.step": "Step {n} of {total}",
+      "signup.done": "Family registered",
+      "signup.doneBody": "Open this link on your parent's phone and add it to the home screen. That is their button.",
+      "signup.addAnother": "Add another person",
+      "signup.profiles": "Everyone you've set up on this phone",
+      "signup.copy": "Copy",
+      "lang.hi": "Hindi",
+      "lang.ta": "Tamil",
+      "lang.bn": "Bengali",
+      "lang.pa": "Punjabi",
+      "lang.en": "English",
+      "prefs.language": "Language",
+      "prefs.larger": "Larger text"
+    },
+    "hi": {
+      "ob.title": "अपने माता-पिता के लिए असली है? सेट कीजिए",
+      "ob.intro": "कुछ छोटे सवाल, एक-एक करके। लगभग दो मिनट लगेंगे।",
+      "ob.q.parentName": "साथी आपके माता-पिता को किस नाम से बुलाए?",
+      "ob.q.parentPhone": "{name} का मोबाइल नंबर क्या है?",
+      "ob.q.language": "साथी {name} से किस भाषा में बात करे?",
+      "ob.q.first": "जाँच के लिए साथी सबसे पहले किसे कॉल करे?",
+      "ob.q.firstPhone": "{first} का मोबाइल नंबर क्या है?",
+      "ob.q.word": "एक परिवार का शब्द चुनिए",
+      "ob.h.word": "जब सच में किसी को पैसे चाहिए हों, तो साथी {name} को \"कॉल असली है\" बताने से पहले यह शब्द पूछेगी। ऐसा शब्द चुनिए जो कोई अजनबी इंटरनेट पर न ढूँढ सके।",
+      "ob.q.review": "जानकारी जाँच लीजिए",
+      "ob.next": "आगे",
+      "ob.step": "कदम {n} / {total}",
+      "signup.done": "परिवार जुड़ गया",
+      "signup.doneBody": "यह लिंक अपने माता-पिता के फ़ोन पर खोलिए और होम स्क्रीन पर जोड़िए। यही उनका बटन है।",
+      "signup.addAnother": "किसी और को जोड़िए",
+      "signup.profiles": "इस फ़ोन से जोड़े गए लोग",
+      "signup.copy": "कॉपी",
+      "lang.hi": "हिंदी",
+      "lang.ta": "तमिल",
+      "lang.bn": "बांग्ला",
+      "lang.pa": "पंजाबी",
+      "lang.en": "अंग्रेज़ी",
+      "prefs.language": "भाषा",
+      "prefs.larger": "बड़े अक्षर"
+    }
+  },
+  "languages": [
+    {
+      "code": "hi",
+      "native": "हिंदी",
+      "name": "Hindi"
+    },
+    {
+      "code": "en",
+      "native": "English",
+      "name": "English"
+    },
+    {
+      "code": "bn",
+      "native": "বাংলা",
+      "name": "Bengali"
+    },
+    {
+      "code": "mr",
+      "native": "मराठी",
+      "name": "Marathi"
+    },
+    {
+      "code": "te",
+      "native": "తెలుగు",
+      "name": "Telugu"
+    },
+    {
+      "code": "ta",
+      "native": "தமிழ்",
+      "name": "Tamil"
+    },
+    {
+      "code": "gu",
+      "native": "ગુજરાતી",
+      "name": "Gujarati"
+    },
+    {
+      "code": "kn",
+      "native": "ಕನ್ನಡ",
+      "name": "Kannada"
+    },
+    {
+      "code": "ml",
+      "native": "മലയാളം",
+      "name": "Malayalam"
+    },
+    {
+      "code": "pa",
+      "native": "ਪੰਜਾਬੀ",
+      "name": "Punjabi"
+    },
+    {
+      "code": "od",
+      "native": "ଓଡ଼ିଆ",
+      "name": "Odia"
+    },
+    {
+      "code": "as",
+      "native": "অসমীয়া",
+      "name": "Assamese"
+    }
+  ]
+}

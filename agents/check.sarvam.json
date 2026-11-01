@@ -1,0 +1,658 @@
+{
+  "agent_config": {
+    "agent_name": "Asli hai? Family check (Sarvam)",
+    "agent_type": "other",
+    "agent_welcome_message": "{{greeting}}",
+    "webhook_url": "https://YOUR-BACKEND/webhooks/bolna",
+    "tasks": [
+      {
+        "task_type": "conversation",
+        "toolchain": {
+          "execution": "parallel",
+          "pipelines": [
+            [
+              "transcriber",
+              "llm",
+              "synthesizer"
+            ]
+          ]
+        },
+        "task_config": {
+          "hangup_after_LLMCall": false,
+          "call_terminate": 240,
+          "voicemail": true,
+          "check_if_user_online": false,
+          "incremental_delay": 1400,
+          "number_of_words_for_interruption": 2
+        },
+        "tools_config": {
+          "input": {
+            "format": "wav",
+            "provider": "plivo"
+          },
+          "output": {
+            "format": "wav",
+            "provider": "plivo"
+          },
+          "api_tools": {
+            "tools": [
+              {
+                "key": "custom_task",
+                "name": "report_verdict",
+                "description": "Send the family member's answer to the safety line.",
+                "parameters": {
+                  "type": "object",
+                  "required": [
+                    "session_id",
+                    "did_call"
+                  ],
+                  "properties": {
+                    "session_id": {
+                      "type": "string"
+                    },
+                    "did_call": {
+                      "type": "string"
+                    },
+                    "spoken_word": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            ],
+            "tools_params": {
+              "report_verdict": {
+                "url": "https://YOUR-BACKEND/tools/report_verdict",
+                "method": "POST",
+                "param": {
+                  "session_id": "%(session_id)s",
+                  "did_call": "%(did_call)s",
+                  "spoken_word": "%(spoken_word)s"
+                },
+                "headers": {
+                  "Authorization": "Bearer YOUR_TOOL_SECRET",
+                  "Content-Type": "application/json"
+                },
+                "scope": "node",
+                "nodes": [
+                  "report"
+                ]
+              }
+            }
+          },
+          "llm_agent": {
+            "agent_type": "graph_agent",
+            "agent_flow_type": "streaming",
+            "llm_config": {
+              "provider": "openai",
+              "model": "gpt-5.4-mini",
+              "temperature": 1,
+              "max_tokens": 120,
+              "routing_model": "gpt-4.1-mini",
+              "agent_information": "You are Saathi from the 'Asli hai?' safety line, calling {{child_name}} about their family member {{parent_name}}. Speak the language of the call, in its own script, one short sentence at a time. Never reveal the family word or {{parent_name}}'s number, and never say the family word yourself. Never ask for an OTP, PIN, password or account details, and never promise that money can be recovered. Never guess what happened to {{parent_name}}; say only what you were told. If someone other than {{child_name}} answers, ask them to have {{child_name}} call {{parent_name}} now.",
+              "current_node_id": "ask_called",
+              "nodes": [
+                {
+                  "id": "ask_called",
+                  "prompt": "If {{mode}} is rescue, ask nothing: say in one short sentence that you are finding out what happened and ask them to stay on the line. If {{mode}} is alert, just ask them to call {{parent_name}} now. Otherwise get a clear yes or no: did they just call {{parent_name}} asking for money or help? Repeat the question once if they are confused.",
+                  "repeat_after_silence_seconds": 8,
+                  "edges": [
+                    {
+                      "to_node_id": "alert_done",
+                      "condition_type": "expression",
+                      "priority": 0,
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "recipient_data.mode",
+                            "operator": "eq",
+                            "value": "alert"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "rescue_wait",
+                      "condition_type": "expression",
+                      "priority": 0,
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "recipient_data.mode",
+                            "operator": "eq",
+                            "value": "rescue"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "tell",
+                      "condition_type": "event",
+                      "event_name": "rescue_update"
+                    },
+                    {
+                      "to_node_id": "verify_live",
+                      "condition_type": "event",
+                      "event_name": "rescue_verify"
+                    },
+                    {
+                      "to_node_id": "route_called",
+                      "condition": "The person answered whether they called",
+                      "parameters": {
+                        "did_call": {
+                          "type": "string",
+                          "description": "Yes if they called the parent and asked for money or help. No if they did not. Unsure if unclear or someone else answered.",
+                          "allowed_values": [
+                            "Yes",
+                            "No",
+                            "Unsure"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "to_node_id": "report",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "_silence_repeats",
+                            "operator": "gte",
+                            "value": 2
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "route_called",
+                  "node_type": "router",
+                  "edges": [
+                    {
+                      "to_node_id": "report",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "did_call",
+                            "operator": "eq",
+                            "value": "No"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "ask_word",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "did_call",
+                            "operator": "eq",
+                            "value": "Yes"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "report",
+                      "condition_type": "unconditional"
+                    }
+                  ]
+                },
+                {
+                  "id": "ask_word",
+                  "prompt": "Ask them to say the family word. Never say or hint at the word yourself.",
+                  "edges": [
+                    {
+                      "to_node_id": "report",
+                      "condition": "They said a word or phrase, or said they don't know it",
+                      "parameters": {
+                        "spoken_word": "string"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "report",
+                  "prompt": "Call @report_verdict with session_id {{session_id}}, did_call and spoken_word.",
+                  "function_call": "report_verdict",
+                  "edges": [
+                    {
+                      "to_node_id": "rescue_thanks",
+                      "condition_type": "expression",
+                      "priority": 0,
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "recipient_data.mode",
+                            "operator": "eq",
+                            "value": "rescue"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "thanks",
+                      "condition_type": "unconditional"
+                    }
+                  ]
+                },
+                {
+                  "id": "thanks",
+                  "node_type": "static",
+                  "static_message": {
+                    "hi": "शुक्रिया। मैं उन्हें अभी बता रही हूँ। नमस्ते।",
+                    "en": "Thank you. I'm letting them know right now. Namaste.",
+                    "bn": "ধন্যবাদ। আমি এখনই ওনাকে জানাচ্ছি। নমস্কার।",
+                    "mr": "धन्यवाद. मी त्यांना आत्ताच सांगते. नमस्कार.",
+                    "te": "ధన్యవాదాలు. నేను ఇప్పుడే వారికి చెబుతున్నాను. నమస్తే.",
+                    "ta": "நன்றி. நான் இப்போதே அவர்களிடம் சொல்கிறேன். வணக்கம்.",
+                    "gu": "આભાર. હું તેમને હમણાં જ જણાવું છું. નમસ્તે.",
+                    "kn": "ಧನ್ಯವಾದಗಳು. ನಾನು ಈಗಲೇ ಅವರಿಗೆ ತಿಳಿಸುತ್ತಿದ್ದೇನೆ. ನಮಸ್ಕಾರ.",
+                    "ml": "നന്ദി. ഞാൻ ഇപ്പോൾ തന്നെ അവരെ അറിയിക്കുന്നു. നമസ്കാരം.",
+                    "pa": "ਧੰਨਵਾਦ। ਮੈਂ ਉਨ੍ਹਾਂ ਨੂੰ ਹੁਣੇ ਦੱਸ ਰਹੀ ਹਾਂ। ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",
+                    "od": "ଧନ୍ୟବାଦ। ମୁଁ ଏବେ ତାଙ୍କୁ ଜଣାଉଛି। ନମସ୍କାର।",
+                    "as": "ধন্যবাদ। মই এতিয়াই তেওঁক জনাই আছোঁ। নমস্কাৰ।"
+                  },
+                  "function_call": "end_call",
+                  "edges": []
+                },
+                {
+                  "id": "rescue_wait",
+                  "prompt": "You are keeping {{child_name}} on the line while Saathi finds out from {{parent_name}} what happened. Reply in one short, calm sentence: you are finding out right now and will tell them in a moment. Ask them to stay on the line and not to call {{parent_name}} yet, so that line stays free. Never guess what happened.",
+                  "repeat_after_silence_seconds": 20,
+                  "edges": [
+                    {
+                      "to_node_id": "tell",
+                      "condition_type": "event",
+                      "event_name": "rescue_update"
+                    },
+                    {
+                      "to_node_id": "verify_live",
+                      "condition_type": "event",
+                      "event_name": "rescue_verify"
+                    },
+                    {
+                      "to_node_id": "rescue_timeout",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "_silence_repeats",
+                            "operator": "gte",
+                            "value": 5
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "rescue_timeout",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "_node_turns",
+                            "operator": "gte",
+                            "value": 6
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "verify_live",
+                  "prompt": "Say this to {{child_name}}, word for word: {{verify_line}} Then get a clear yes or no. Repeat the question once if they are confused.",
+                  "repeat_after_silence_seconds": 8,
+                  "edges": [
+                    {
+                      "to_node_id": "route_called",
+                      "condition": "The person answered whether they called",
+                      "parameters": {
+                        "did_call": {
+                          "type": "string",
+                          "description": "Yes if they called the parent and asked for money or help. No if they did not. Unsure if unclear or someone else answered.",
+                          "allowed_values": [
+                            "Yes",
+                            "No",
+                            "Unsure"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "to_node_id": "report",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "_silence_repeats",
+                            "operator": "gte",
+                            "value": 2
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "tell",
+                  "prompt": "Tell {{child_name}} this, word for word: {{update}} If they ask something, answer only from that, in one short sentence.",
+                  "repeat_after_silence_seconds": 8,
+                  "edges": [
+                    {
+                      "to_node_id": "alert_done",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "_silence_repeats",
+                            "operator": "gte",
+                            "value": 1
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "alert_done",
+                      "condition_type": "expression",
+                      "expression": {
+                        "conditions": [
+                          {
+                            "variable": "_node_turns",
+                            "operator": "gte",
+                            "value": 2
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "to_node_id": "alert_done",
+                      "condition": "They acknowledged, said okay, or said they will call"
+                    }
+                  ]
+                },
+                {
+                  "id": "rescue_timeout",
+                  "node_type": "static",
+                  "static_message": {
+                    "hi": "मुझे अभी पूरी बात पता नहीं चल पाई। कृपया अभी ख़ुद उन्हें कॉल कीजिए। नमस्ते।",
+                    "en": "I couldn't get the full story yet. Please call them yourself now. Namaste.",
+                    "bn": "আমি এখনও পুরো ব্যাপারটা জানতে পারিনি। দয়া করে এখনই নিজে ওনাকে ফোন করুন। নমস্কার।",
+                    "mr": "मला अजून पूर्ण माहिती मिळाली नाही. कृपया आत्ताच स्वतः त्यांना फोन करा. नमस्कार.",
+                    "te": "నాకు ఇంకా పూర్తి విషయం తెలియలేదు. దయచేసి ఇప్పుడే మీరే వారికి ఫోన్ చేయండి. నమస్తే.",
+                    "ta": "எனக்கு இன்னும் முழு விவரம் தெரியவில்லை. தயவுசெய்து இப்போதே நீங்களே அவர்களை அழையுங்கள். வணக்கம்.",
+                    "gu": "મને હજી પૂરી વાત ખબર નથી પડી. કૃપા કરીને હમણાં જ જાતે તેમને ફોન કરો. નમસ્તે.",
+                    "kn": "ನನಗೆ ಇನ್ನೂ ಪೂರ್ತಿ ವಿಷಯ ತಿಳಿದಿಲ್ಲ. ದಯವಿಟ್ಟು ಈಗಲೇ ನೀವೇ ಅವರಿಗೆ ಕರೆ ಮಾಡಿ. ನಮಸ್ಕಾರ.",
+                    "ml": "എനിക്ക് ഇതുവരെ മുഴുവൻ കാര്യവും അറിയാൻ കഴിഞ്ഞില്ല. ദയവായി ഇപ്പോൾ തന്നെ നിങ്ങൾ അവരെ വിളിക്കുക. നമസ്കാരം.",
+                    "pa": "ਮੈਨੂੰ ਹਾਲੇ ਪੂਰੀ ਗੱਲ ਪਤਾ ਨਹੀਂ ਲੱਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਹੁਣੇ ਆਪ ਉਨ੍ਹਾਂ ਨੂੰ ਫ਼ੋਨ ਕਰੋ। ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",
+                    "od": "ମୁଁ ଏଯାଏଁ ପୂରା କଥା ଜାଣିପାରିନି। ଦୟାକରି ଏବେ ନିଜେ ତାଙ୍କୁ ଫୋନ କରନ୍ତୁ। ନମସ୍କାର।",
+                    "as": "মই এতিয়াও গোটেই কথাটো জানিব পৰা নাই। অনুগ্ৰহ কৰি এতিয়াই নিজে তেওঁক ফোন কৰক। নমস্কাৰ।"
+                  },
+                  "function_call": "end_call",
+                  "edges": []
+                },
+                {
+                  "id": "rescue_thanks",
+                  "node_type": "static",
+                  "static_message": {
+                    "hi": "शुक्रिया। मैं उन्हें अभी बता रही हूँ। आप भी उन्हें एक बार कॉल कर लीजिए। नमस्ते।",
+                    "en": "Thank you. I'm letting them know right now. Please give them a call yourself too. Namaste.",
+                    "bn": "ধন্যবাদ। আমি এখনই ওনাকে জানাচ্ছি। আপনিও একবার ওনাকে ফোন করে নিন। নমস্কার।",
+                    "mr": "धन्यवाद. मी आत्ताच त्यांना सांगत आहे. तुम्हीही त्यांना एकदा फोन करा. नमस्कार.",
+                    "te": "ధన్యవాదాలు. నేను ఇప్పుడే వారికి చెబుతున్నాను. మీరు కూడా ఒకసారి వారికి ఫోన్ చేయండి. నమస్తే.",
+                    "ta": "நன்றி. நான் இப்போதே அவர்களிடம் சொல்கிறேன். நீங்களும் ஒருமுறை அவர்களை அழையுங்கள். வணக்கம்.",
+                    "gu": "આભાર. હું હમણાં જ તેમને જણાવી રહી છું. તમે પણ એક વાર તેમને ફોન કરી લો. નમસ્તે.",
+                    "kn": "ಧನ್ಯವಾದಗಳು. ನಾನು ಈಗಲೇ ಅವರಿಗೆ ತಿಳಿಸುತ್ತಿದ್ದೇನೆ. ನೀವೂ ಒಮ್ಮೆ ಅವರಿಗೆ ಕರೆ ಮಾಡಿ. ನಮಸ್ಕಾರ.",
+                    "ml": "നന്ദി. ഞാൻ ഇപ്പോൾ തന്നെ അവരെ അറിയിക്കുകയാണ്. നിങ്ങളും ഒരിക്കൽ അവരെ വിളിക്കുക. നമസ്കാരം.",
+                    "pa": "ਧੰਨਵਾਦ। ਮੈਂ ਹੁਣੇ ਉਨ੍ਹਾਂ ਨੂੰ ਦੱਸ ਰਹੀ ਹਾਂ। ਤੁਸੀਂ ਵੀ ਇੱਕ ਵਾਰ ਉਨ੍ਹਾਂ ਨੂੰ ਫ਼ੋਨ ਕਰ ਲਓ। ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",
+                    "od": "ଧନ୍ୟବାଦ। ମୁଁ ଏବେ ତାଙ୍କୁ ଜଣାଉଛି। ଆପଣ ବି ଥରେ ତାଙ୍କୁ ଫୋନ କରିନିଅନ୍ତୁ। ନମସ୍କାର।",
+                    "as": "ধন্যবাদ। মই এতিয়াই তেওঁক জনাইছোঁ। আপুনিও এবাৰ তেওঁক ফোন কৰি লওক। নমস্কাৰ।"
+                  },
+                  "function_call": "end_call",
+                  "edges": []
+                },
+                {
+                  "id": "alert_done",
+                  "node_type": "static",
+                  "static_message": {
+                    "hi": "कृपया उन्हें अभी कॉल कीजिए। नमस्ते।",
+                    "en": "Please call them now. Namaste.",
+                    "bn": "দয়া করে এখনই ওনাকে ফোন করুন। নমস্কার।",
+                    "mr": "कृपया आत्ताच त्यांना फोन करा. नमस्कार.",
+                    "te": "దయచేసి ఇప్పుడే వారికి ఫోన్ చేయండి. నమస్తే.",
+                    "ta": "தயவுசெய்து இப்போதே அவர்களை அழையுங்கள். வணக்கம்.",
+                    "gu": "કૃપા કરીને હમણાં જ તેમને ફોન કરો. નમસ્તે.",
+                    "kn": "ದಯವಿಟ್ಟು ಈಗಲೇ ಅವರಿಗೆ ಕರೆ ಮಾಡಿ. ನಮಸ್ಕಾರ.",
+                    "ml": "ദയവായി ഇപ്പോൾ തന്നെ അവരെ വിളിക്കുക. നമസ്കാരം.",
+                    "pa": "ਕਿਰਪਾ ਕਰਕੇ ਹੁਣੇ ਉਨ੍ਹਾਂ ਨੂੰ ਫ਼ੋਨ ਕਰੋ। ਸਤ ਸ੍ਰੀ ਅਕਾਲ।",
+                    "od": "ଦୟାକରି ଏବେ ତାଙ୍କୁ ଫୋନ କରନ୍ତୁ। ନମସ୍କାର।",
+                    "as": "অনুগ্ৰহ কৰি এতিয়াই তেওঁক ফোন কৰক। নমস্কাৰ।"
+                  },
+                  "function_call": "end_call",
+                  "edges": []
+                }
+              ],
+              "reasoning_effort": "none"
+            }
+          },
+          "transcriber": {
+            "provider": "sarvam",
+            "model": "saaras:v4",
+            "language": "hi",
+            "stream": true,
+            "endpointing": 700,
+            "keywords": "CBI, TRAI, ED, police, digital arrest, Aadhaar, courier, customs, parcel, UPI, RTGS, OTP, hospital, accident",
+            "context": "An older parent in India describes a suspicious phone call where someone claiming to be family, police or a bank asked for money or an OTP. Expect rupee amounts and family names."
+          },
+          "synthesizer": {
+            "provider": "sarvam",
+            "stream": true,
+            "buffer_size": 150,
+            "provider_config": {
+              "model": "bulbul:v4-flash",
+              "voice": "Aparna (Customer)",
+              "voice_id": "aparna_hi_customer",
+              "language": "hi",
+              "speed": 1.0
+            }
+          },
+          "multilingual_config": {
+            "enabled": true,
+            "active_language": "hi",
+            "language_switch_trigger": "caller_requested",
+            "languages": {
+              "hi": {
+                "transcriber": {
+                  "language": "hi"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Aparna (Customer)",
+                    "voice_id": "aparna_hi_customer",
+                    "language": "hi",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "en": {
+                "transcriber": {
+                  "language": "en"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Aparna (Companion)",
+                    "voice_id": "aparna_en_companion",
+                    "language": "en",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "bn": {
+                "transcriber": {
+                  "language": "bn"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Roopa (Conversational)",
+                    "voice_id": "roopa_bn_conversational",
+                    "language": "bn",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "mr": {
+                "transcriber": {
+                  "language": "mr"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Ishita (Conversational)",
+                    "voice_id": "ishita_mr_conversational",
+                    "language": "mr",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "te": {
+                "transcriber": {
+                  "language": "te"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Kavitha (Conversation)",
+                    "voice_id": "kavitha_te_conversation",
+                    "language": "te",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "ta": {
+                "transcriber": {
+                  "language": "ta"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v3",
+                    "voice": "Kavya",
+                    "voice_id": "kavya",
+                    "language": "ta",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "gu": {
+                "transcriber": {
+                  "language": "gu"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Pooja (Customer)",
+                    "voice_id": "pooja_gu_customer",
+                    "language": "gu",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "kn": {
+                "transcriber": {
+                  "language": "kn"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v4-flash",
+                    "voice": "Chaitra (Conversation)",
+                    "voice_id": "chaitra_kn_conversation",
+                    "language": "kn",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "ml": {
+                "transcriber": {
+                  "language": "ml"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v3",
+                    "voice": "Kavya",
+                    "voice_id": "kavya",
+                    "language": "ml",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "pa": {
+                "transcriber": {
+                  "language": "pa"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v3",
+                    "voice": "Kavya",
+                    "voice_id": "kavya",
+                    "language": "pa",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "od": {
+                "transcriber": {
+                  "language": "od"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v3",
+                    "voice": "Kavya",
+                    "voice_id": "kavya",
+                    "language": "od",
+                    "speed": 1.0
+                  }
+                }
+              },
+              "as": {
+                "transcriber": {
+                  "language": "as"
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "model": "bulbul:v3",
+                    "voice": "Kavya",
+                    "voice_id": "kavya",
+                    "language": "as",
+                    "speed": 1.0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "agent_prompts": {
+    "task_1": {
+      "system_prompt": "You are Saathi from the 'Asli hai?' safety line, calling {{child_name}} about a call their parent {{parent_name}} just got. Speak the language of the call, in its own script, one short sentence at a time. Never reveal the family word or the parent's number. If someone other than {{child_name}} answers, ask them to have {{child_name}} call their parent now."
+    }
+  }
+}
