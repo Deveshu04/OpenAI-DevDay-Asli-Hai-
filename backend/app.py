@@ -76,6 +76,7 @@ DRILL_EXPECTED = {1: CHILD_SAFE, 2: CHILD_SAFE, 3: "authority", 4: "authority"}
 AUTHORITY_MARK = "डिजिटल अरेस्ट नाम की कोई चीज़"
 PAID_MARK = "अभी तुरंत 1930 पर कॉल कीजिए"
 PLACEHOLDER = re.compile(r"^%\(\w+\)s$")
+KEEP_AWAKE_S = 10 * 60
 
 
 class Runtime:
@@ -101,6 +102,17 @@ class Runtime:
 rt = Runtime()
 
 
+async def keep_awake(url: str) -> None:
+    # Render's free plan sleeps after 15 idle minutes and wipes the SQLite file, which kills every tap link.
+    async with httpx.AsyncClient(timeout=30) as client:
+        while True:
+            await asyncio.sleep(KEEP_AWAKE_S)
+            try:
+                await client.get(f"{url}/health")
+            except httpx.HTTPError:
+                log.warning("keep-awake ping failed")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     db.init_db()
@@ -113,6 +125,9 @@ async def lifespan(app: FastAPI):
     if owned_sender:
         rt.sender = notify.from_env(rt.bolna)
     rearm_timers()
+    # Render sets this itself, so local runs never ping.
+    if os.getenv("RENDER_EXTERNAL_URL"):
+        rt.spawn(keep_awake(os.environ["RENDER_EXTERNAL_URL"]))
     yield
     for task in list(rt.tasks):
         task.cancel()
