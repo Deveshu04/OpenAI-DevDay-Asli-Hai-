@@ -469,13 +469,14 @@ def rescue_story(session: dict, family: dict, kind: str) -> dict:
 
 async def start_rescue(session_id: str, after_priority: int = 0) -> None:
     session = db.one("SELECT * FROM sessions WHERE id = ?", session_id)
-    family = db.one("SELECT parent_name, language FROM families WHERE id = ?", session["family_id"])
+    family = db.one("SELECT parent_name, parent_phone, language FROM families WHERE id = ?", session["family_id"])
     agent_id = STACKS.get(session["stack"], {}).get("check")
     if not agent_id:
         log.error("no check agent for stack=%s", session["stack"])
         return
     for contact in family_contacts(session["family_id"]):
-        if contact["priority"] <= after_priority:
+        # One phone can't take both calls at once; ringing it here would leave the parent's own call busy.
+        if contact["priority"] <= after_priority or contact["phone"] == family["parent_phone"]:
             continue
         slot = reserve_call(contact["phone"], "rescue", RESCUES_PER_NUMBER_PER_HOUR)
         if slot is None:
