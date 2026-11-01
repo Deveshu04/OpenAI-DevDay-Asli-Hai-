@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body class="onboarding">
   <a class="skip" href="#main" data-i18n="skip.form">Skip to the form</a>
@@ -144,7 +144,8 @@
         <div class="ob-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M6 14h36v6a4 4 0 0 0 0 8v6H6v-6a4 4 0 0 0 0-8z"/><path d="M30 14v20" stroke-dasharray="3 3"/></svg></div>
         <h1 tabindex="-1"><label for="invite_code" id="q-invite" data-i18n="ob.q.invite">Enter your pilot invite code</label></h1>
         <p class="ob-hint" id="h-invite" data-i18n="ob.h.invite">The pilot team gives you this code.</p>
-        <input id="invite_code" class="ob-input" autocomplete="off" aria-describedby="h-invite invite_code-error">
+        <p class="judge-code" id="judge-code"><span data-i18n="judges.code">Hackathon judges, use invite code</span> <strong>ASLI420</strong></p>
+        <input id="invite_code" class="ob-input" autocomplete="off" value="ASLI420" aria-describedby="h-invite judge-code invite_code-error">
         <p class="ob-error" id="invite_code-error" role="alert" hidden></p>
       </section>
 
@@ -186,7 +187,7 @@
     </section>
   </main>
 
-  <script src="site.js?v=6"></script>
+  <script src="site.js?v=7"></script>
   <script>
     const LANGS = {
       hi: { native: "हिंदी", script: /[ऀ-ॿ]/, sample: "आम रस" },
@@ -205,7 +206,7 @@
     // Extra spellings so the backend can match the caller's "beta" or "बेटा" to this contact.
     const RELATIONS = { son: "son beta बेटा", daughter: "daughter beti बेटी" };
     const STEPS = ["intro", "parentName", "parentPhone", "language", "first", "firstPhone", "second", "word", "invite", "review"];
-    const OPTIONAL = new Set(["second", "invite"]);
+    const OPTIONAL = new Set(["second"]);
 
     const form = document.getElementById("ob");
     const tiles = document.getElementById("lang-tiles");
@@ -486,7 +487,6 @@
 
     skipBtn.addEventListener("click", () => {
       if (STEPS[step] === "second") ["c2_name", "c2_phone"].forEach((id) => { document.getElementById(id).value = ""; });
-      if (STEPS[step] === "invite") document.getElementById("invite_code").value = "";
       go(step + 1);
     });
 

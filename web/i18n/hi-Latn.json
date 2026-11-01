@@ -195,6 +195,7 @@
   "ob.h.word": "Jab sach mein kisi ko paise chahiye hon, to Saathi {name} ko \"call asli hai\" batane se pehle yeh word poochegi. Aisa word chuniye jo koi ajnabi internet par na dhoondh sake.",
   "ob.q.invite": "Apna pilot invite code likhiye",
   "ob.h.invite": "Yeh code pilot team deti hai.",
+  "judges.code": "Hackathon judges, yeh invite code use kijiye:",
   "ob.q.review": "Details check kar lijiye",
   "ob.h.review": "Jo theek na ho use badliye, phir parivaar jodiye.",
   "ob.change": "Badliye",

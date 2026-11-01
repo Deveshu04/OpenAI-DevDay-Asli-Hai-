@@ -29,7 +29,7 @@
   function load(lang) {
     if (!root.hasAttribute("data-i18n-page")) return Promise.resolve({});
     if (!cache[lang]) {
-      cache[lang] = fetch(`i18n/${lang}.json?v=6`).then((res) => (res.ok ? res.json() : {})).catch(() => ({}));
+      cache[lang] = fetch(`i18n/${lang}.json?v=7`).then((res) => (res.ok ? res.json() : {})).catch(() => ({}));
     }
     return cache[lang];
   }

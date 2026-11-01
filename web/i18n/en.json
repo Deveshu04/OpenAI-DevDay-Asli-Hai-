@@ -195,6 +195,7 @@
   "ob.h.word": "When someone really needs money, Saathi asks for this word before telling {name} the call is genuine. Pick something a stranger can't find online.",
   "ob.q.invite": "Enter your pilot invite code",
   "ob.h.invite": "The pilot team gives you this code.",
+  "judges.code": "Hackathon judges, use invite code",
   "ob.q.review": "Check the details",
   "ob.h.review": "Change anything that isn't right, then register.",
   "ob.change": "Change",

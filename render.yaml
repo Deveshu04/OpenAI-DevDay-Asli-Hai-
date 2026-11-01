@@ -39,7 +39,7 @@ services:
       - key: AGENT_ID_CHECK_CEREBRAS
         sync: false
       - key: SIGNUP_CODE
-        sync: false
+        value: ASLI420
       - key: BOLNA_FROM_NUMBER
         sync: false
       - key: SUMMARY_WORKFLOW_ID
